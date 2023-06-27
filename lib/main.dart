@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:reusable_widget_v2/usable_widget/usable_text_field.dart';
+import 'package:reusable_widget_v2/usable_widget/usable_text_field_with_row.dart';
+
+import 'master_widget/master_text_field.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,11 +34,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final textController = TextEditingController(text: 'Text Filled');
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    print('text : ${textController.text}');
   }
 
   @override
@@ -54,6 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            MasterTextField.initRoundedFalue(),
+            const SizedBox(height: 10),
+            const UsableTextField(),
+            const SizedBox(height: 10),
+            const UsableTextFieldWithRow()
           ],
         ),
       ),
