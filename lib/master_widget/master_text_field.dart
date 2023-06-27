@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ReuUiKitTextField extends StatefulWidget {
+class MasterTextField extends StatefulWidget {
   final String? id;
   final String labelText;
   final String? value;
@@ -24,7 +24,7 @@ class ReuUiKitTextField extends StatefulWidget {
   final int maxLines;
   final TextInputType textInputType;
 
-  const ReuUiKitTextField({
+  const MasterTextField({
     Key? key,
     required this.labelText,
     this.id,
@@ -50,15 +50,49 @@ class ReuUiKitTextField extends StatefulWidget {
     this.textInputType = TextInputType.text,
   }) : super(key: key);
 
+  factory MasterTextField.initFalue() {
+    return MasterTextField(
+      labelText: 'Text Field',
+      controller: TextEditingController(),
+      value: 'Text Filled',
+    );
+  }
+
+  factory MasterTextField.initRoundedFalue() {
+    return MasterTextField(
+      labelText: 'Text Field',
+      controller: TextEditingController(),
+      value: 'Text Filled',
+      border: const OutlineInputBorder(
+        borderSide: BorderSide(width: 1),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+    );
+  }
+
   @override
-  State<ReuUiKitTextField> createState() => _ReuUiKitTextFieldState();
+  State<MasterTextField> createState() => _MasterTextFieldState();
 }
 
-class _ReuUiKitTextFieldState extends State<ReuUiKitTextField> {
+class _MasterTextFieldState extends State<MasterTextField> {
+  late TextEditingController textEditingController;
+
   @override
   void initState() {
-    widget.controller.text = widget.value ?? "";
+    textEditingController = widget.controller;
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (textEditingController.text.isEmpty) {
+      setState(() {
+        textEditingController.text = widget.value ?? "";
+      });
+    }
+    super.didChangeDependencies();
   }
 
   FocusNode focusNode = FocusNode();
@@ -76,7 +110,9 @@ class _ReuUiKitTextFieldState extends State<ReuUiKitTextField> {
       keyboardType: widget.textInputType,
       decoration: InputDecoration(
         alignLabelWithHint: true,
-        labelText: widget.labelText,
+        labelText: widget.labelText.isEmpty && (widget.hint ?? '').isNotEmpty
+            ? null
+            : widget.labelText,
         contentPadding: EdgeInsets.zero,
         labelStyle: const TextStyle(
           color: Colors.blueGrey,
@@ -100,7 +136,7 @@ class _ReuUiKitTextFieldState extends State<ReuUiKitTextField> {
             ? widget.suffixWidget ??
                 Icon(widget.suffixIcon ?? Icons.text_format)
             : null,
-        helperText: widget.hint,
+        hintText: widget.hint,
       ),
       onChanged: widget.onChanged,
       onFieldSubmitted: (value) {
