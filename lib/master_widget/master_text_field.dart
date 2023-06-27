@@ -23,6 +23,7 @@ class MasterTextField extends StatefulWidget {
   final InputBorder? border;
   final int maxLines;
   final TextInputType textInputType;
+  final double? textAlignVertical;
 
   const MasterTextField({
     Key? key,
@@ -48,6 +49,7 @@ class MasterTextField extends StatefulWidget {
     this.counter,
     this.maxLines = 1,
     this.textInputType = TextInputType.text,
+    this.textAlignVertical,
   }) : super(key: key);
 
   factory MasterTextField.initFalue() {
@@ -100,6 +102,7 @@ class _MasterTextFieldState extends State<MasterTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textAlignVertical: widget.textAlignVertical != null ? TextAlignVertical(y: widget.textAlignVertical!) : null,
       enabled: widget.enabled,
       controller: widget.controller,
       focusNode: focusNode,
