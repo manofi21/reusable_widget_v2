@@ -15,6 +15,8 @@ class UsableTextField extends StatelessWidget {
         hint: 'Hint',
         usePrefix: true,
         prefixWidget: const Icon(Icons.access_alarm),
+        // Content Padding tidak akan terbaca jika prefixWidget muncul.
+        contentPadding: const EdgeInsets.only(left: 100),
         border: const OutlineInputBorder(
           borderSide: BorderSide(width: 1),
           borderRadius: BorderRadius.all(

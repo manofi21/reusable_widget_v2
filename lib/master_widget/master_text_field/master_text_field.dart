@@ -74,7 +74,7 @@ class MasterTextField extends StatefulWidget {
           Radius.circular(10),
         ),
       ),
-      contentPadding: const EdgeInsets.only(left: 10),
+      contentPadding: const EdgeInsets.only(left: 40),
     );
   }
 
@@ -145,6 +145,7 @@ class _MasterTextFieldState extends State<MasterTextField> {
                   widget.prefixIcon ?? Icons.text_format,
                 )
             : null,
+        prefixIconConstraints: const BoxConstraints(minWidth: 40.5),
         suffixIcon: widget.useSuffix
             ? widget.suffixWidget ??
                 Icon(widget.suffixIcon ?? Icons.text_format)
