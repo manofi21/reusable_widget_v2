@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../master_widget/master_text_field.dart';
+import '../master_widget/master_text_field/master_text_field.dart';
 
 class UsableTextField extends StatelessWidget {
   const UsableTextField({super.key});

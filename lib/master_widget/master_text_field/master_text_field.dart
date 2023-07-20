@@ -24,6 +24,7 @@ class MasterTextField extends StatefulWidget {
   final int maxLines;
   final TextInputType textInputType;
   final double? textAlignVertical;
+  final EdgeInsetsGeometry? contentPadding;
 
   const MasterTextField({
     Key? key,
@@ -50,6 +51,7 @@ class MasterTextField extends StatefulWidget {
     this.maxLines = 1,
     this.textInputType = TextInputType.text,
     this.textAlignVertical,
+    this.contentPadding,
   }) : super(key: key);
 
   factory MasterTextField.initFalue() {
@@ -57,6 +59,7 @@ class MasterTextField extends StatefulWidget {
       labelText: 'Text Field',
       controller: TextEditingController(),
       value: 'Text Filled',
+      contentPadding: const EdgeInsets.only(left: 40),
     );
   }
 
@@ -64,13 +67,14 @@ class MasterTextField extends StatefulWidget {
     return MasterTextField(
       labelText: 'Text Field',
       controller: TextEditingController(),
-      value: 'Text Filled',
+      value: 'Text Init',
       border: const OutlineInputBorder(
         borderSide: BorderSide(width: 1),
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
       ),
+      contentPadding: const EdgeInsets.only(left: 10),
     );
   }
 
@@ -81,19 +85,21 @@ class MasterTextField extends StatefulWidget {
 class _MasterTextFieldState extends State<MasterTextField> {
   late TextEditingController textEditingController;
 
-  @override
-  void initState() {
-    textEditingController = widget.controller;
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //    WidgetsBinding.instance.addPostFrameCallback((_) async {
+  //     textEditingController = widget.controller;
+  //     if (textEditingController.text.isEmpty) {
+  //         textEditingController.text = widget.value ?? "";
+  //     }
+  //   });
+  //   super.initState();
+  // }
 
   @override
   void didChangeDependencies() {
-    if (textEditingController.text.isEmpty) {
-      setState(() {
-        textEditingController.text = widget.value ?? "";
-      });
-    }
+    widget.controller.text = widget.value ?? "";
+    textEditingController = widget.controller;
     super.didChangeDependencies();
   }
 
@@ -102,9 +108,11 @@ class _MasterTextFieldState extends State<MasterTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textAlignVertical: widget.textAlignVertical != null ? TextAlignVertical(y: widget.textAlignVertical!) : null,
+      textAlignVertical: widget.textAlignVertical != null
+          ? TextAlignVertical(y: widget.textAlignVertical!)
+          : null,
       enabled: widget.enabled,
-      controller: widget.controller,
+      controller: textEditingController,
       focusNode: focusNode,
       validator: widget.validator,
       maxLength: widget.maxLength,
@@ -116,7 +124,7 @@ class _MasterTextFieldState extends State<MasterTextField> {
         labelText: widget.labelText.isEmpty && (widget.hint ?? '').isNotEmpty
             ? null
             : widget.labelText,
-        contentPadding: EdgeInsets.zero,
+        contentPadding: widget.contentPadding ?? EdgeInsets.zero,
         labelStyle: const TextStyle(
           color: Colors.blueGrey,
         ),
@@ -133,13 +141,16 @@ class _MasterTextFieldState extends State<MasterTextField> {
             ),
         prefixIcon: widget.usePrefix
             ? widget.prefixWidget ??
-                Icon(widget.prefixIcon ?? Icons.text_format)
+                Icon(
+                  widget.prefixIcon ?? Icons.text_format,
+                )
             : null,
         suffixIcon: widget.useSuffix
             ? widget.suffixWidget ??
                 Icon(widget.suffixIcon ?? Icons.text_format)
             : null,
         hintText: widget.hint,
+        hintStyle: const TextStyle(color: Colors.grey),
       ),
       onChanged: widget.onChanged,
       onFieldSubmitted: (value) {
