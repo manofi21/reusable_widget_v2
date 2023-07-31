@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../master_widget/master_group_button_as_radio_btn/master_tile_radio_btn.dart';
 import '../usable_widget_model/usable_bottom_sheet_radio_item_model.dart';
 
-class BottomSheetRadio extends StatefulWidget {
-  const BottomSheetRadio({
+class UsableRadioGroupWidget extends StatefulWidget {
+  const UsableRadioGroupWidget({
     Key? key,
     this.initialItem,
     this.listItems = const [],
@@ -22,10 +22,10 @@ class BottomSheetRadio extends StatefulWidget {
   final EdgeInsets margin;
 
   @override
-  State<BottomSheetRadio> createState() => _BottomSheetRadioState();
+  State<UsableRadioGroupWidget> createState() => _UsableRadioGroupWidgetState();
 }
 
-class _BottomSheetRadioState extends State<BottomSheetRadio> {
+class _UsableRadioGroupWidgetState extends State<UsableRadioGroupWidget> {
   UsableBottomSheetRadioItemModel? _selectedItem;
 
   @override
