@@ -19,7 +19,7 @@ class _MasterCardItemState extends State<MasterCardItem> {
           children: [
             Container(
               height: 160.0,
-              width: 160.0,
+              width: double.infinity,
               decoration: BoxDecoration(
                 image: const DecorationImage(
                   image: NetworkImage(
